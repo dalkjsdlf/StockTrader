@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: stock-trader
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+  info:
+    title: "Stock Trader API"
+    description: "???? ???? API"
+    version: "1.0.0"
