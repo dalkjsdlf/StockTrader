@@ -31,8 +31,44 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Member"
+        "400":
+          description: 잘못된 요청
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: 인증 실패 (로그인이 필요함)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: 권한 부족 (관리자만 접근 가능)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: 사용자를 찾을 수 없음 (등록된 사용자가 없음)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: 요청 과다 (Rate Limit 초과)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
         "500":
           description: 서버 내부 오류
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "503":
+          description: 서비스 불가 (서버 과부하 또는 DB 연결 오류)
           content:
             application/json:
               schema:
@@ -57,18 +93,28 @@ paths:
               schema:
                 $ref: "#/components/schemas/Member"
         "400":
-          description: 입력값 오류
+          description: 입력값 오류 또는 중복된 정보 (ID, 이메일, 전화번호)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-        "409":
-          description: 중복된 사용자 ID
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  /api/v1/members/{id}:
+              examples:
+                invalid_input:
+                  summary: 잘못된 입력값
+                  value:
+                    error: Bad Request
+                    message: 입력값이 올바르지 않습니다.
+                duplicated_user_id:
+                  summary: 중복된 사용자 ID
+                  value:
+                    error: Bad Request
+                    message: 이미 존재하는 사용자ID입니다.
+                duplicated_email:
+                  summary: 중복된 이메일
+                  value:
+                    error: Bad Request
+                    message: 이미 존재하는 이메일입니다.
+  /api/v1/members/{member_id}:
     get:
       tags:
       - Member
@@ -162,11 +208,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Member"
         "400":
-          description: 입력값 오류
+          description: 입력값 오류 또는 중복된 정보 (ID, 이메일, 전화번호)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_input:
+                  summary: 잘못된 입력값
+                  value:
+                    error: Bad Request
+                    message: 입력값이 올바르지 않습니다.
+                duplicated_user_id:
+                  summary: 중복된 사용자 ID
+                  value:
+                    error: Bad Request
+                    message: 이미 존재하는 사용자ID입니다.
+                duplicated_email:
+                  summary: 중복된 이메일
+                  value:
+                    error: Bad Request
+                    message: 이미 존재하는 이메일입니다.
         "404":
           description: 존재하지 않는 사용자 ID
           content:
@@ -204,13 +266,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: 존재하지 않는 사용자 또는 인가되지 않은 사용자
+        "401":
+          description: 인증 실패 (로그인이 필요함)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /api/v1/accounts/{id}:
+        "403":
+          description: 권한 부족 (로그인된 사용자만 접근 가능)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: 서버 내부 오류
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/v1/accounts/{account_id}:
     get:
       tags:
       - Account
@@ -245,13 +319,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /api/v1/accounts/{id}/holdings:
+  /api/v1/accounts/{account_id}/stocks:
     get:
       tags:
       - Account
       summary: 보유 종목 조회
       description: 계좌 ID를 이용하여 사용자가 보유한 주식 목록을 조회합니다.
-      operationId: getHoldingsByAccountId
+      operationId: getStocksByAccountId
       parameters:
       - name: id
         in: path
@@ -269,7 +343,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Holding"
+                  $ref: "#/components/schemas/AccountStock"
         "400":
           description: 입력값 오류 (계좌ID가 숫자가 아닐 경우)
           content:
@@ -282,7 +356,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /api/v1/accounts/{id}/withdraw:
+  /api/v1/accounts/{account_id}/withdraw:
     patch:
       tags:
       - Account
@@ -302,7 +376,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/id_withdraw_body"
+              $ref: "#/components/schemas/IdWithdrawBody"
         required: true
       responses:
         "200":
@@ -310,7 +384,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/inline_response_200"
+                $ref: "#/components/schemas/InlineResponse200"
         "400":
           description: 입력값 오류 (계좌ID 또는 차감금액이 숫자가 아닐 경우)
           content:
@@ -329,7 +403,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /api/v1/accounts/{id}/deposit:
+  /api/v1/accounts/{account_id}/deposit:
     patch:
       tags:
       - Account
@@ -349,7 +423,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/id_deposit_body"
+              $ref: "#/components/schemas/IdDepositBody"
         required: true
       responses:
         "200":
@@ -357,7 +431,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/inline_response_200"
+                $ref: "#/components/schemas/InlineResponse200"
         "400":
           description: 입력값 오류 (계좌ID 또는 증가금액이 숫자가 아닐 경우)
           content:
@@ -466,7 +540,7 @@ paths:
                     error: Bad Request
                     message: Invalid theme. It must be exactly 5 characters long and
                       contain only uppercase letters and numbers.
-  /api/v1/items/{id}:
+  /api/v1/items/{item_id}:
     get:
       tags:
       - StockItem
@@ -560,7 +634,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /api/v1/items/detail/{id}:
+  /api/v1/items/detail/{item_id}:
     get:
       tags:
       - StockItem
@@ -736,7 +810,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/order_cancel_body"
+              $ref: "#/components/schemas/OrderCancelBody"
         required: true
       responses:
         "200":
@@ -864,27 +938,64 @@ components:
           description: 출금 가능 잔액
           format: float
           example: 480000
-    Holding:
+    AccountStock:
       type: object
+      description: 계좌가 보유한 주식 정보를 나타내는 객체
       properties:
         account_id:
           type: integer
+          description: 보유 종목이 속한 계좌 ID
+          example: 101
         item_id:
           type: integer
+          description: 보유 종목의 ID
+          example: 202
         item_code:
           type: string
+          description: 종목 코드 (6자리, 영문 대문자 및 숫자 조합)
+          example: "ABC123"
         purchase_price:
           type: number
+          description: 매입 가격 (1주당 단가)
+          example: 1500.50
         quantity:
           type: integer
+          description: 매입 수량
+          example: 10
         available_quantity:
           type: integer
+          description: 매도 가능한 가용 수량
+          example: 5
         market_price:
           type: number
+          description: 현재 시장 가격
+          example: 1550.75
         profit_loss_amount:
           type: number
+          description: 평가 손익 금액 (시장 가격 기준)
+          example: 50.25
         profit_loss_rate:
           type: number
+          description: 평가 손익률 (시장 가격 기준, % 단위)
+          example: 3.35
+        created_at:
+          type: string
+          format: date-time
+          description: 보유 종목 등록 일시
+          example: "2024-03-09T12:34:56Z"
+        created_by:
+          type: string
+          description: 보유 종목 최초 등록자
+          example: "admin"
+        modified_at:
+          type: string
+          format: date-time
+          description: 마지막 수정 일시 (null 가능)
+          example: "2024-03-10T08:22:11Z"
+        modified_by:
+          type: string
+          description: 마지막 수정자 (null 가능)
+          example: "trader123"
     Item:
       type: object
       properties:
@@ -1082,7 +1193,7 @@ components:
         message:
           type: string
           description: 에러 상세 메시지
-    id_withdraw_body:
+    IdWithdrawBody:
       type: object
       properties:
         amount:
@@ -1090,13 +1201,13 @@ components:
           description: 차감할 금액
           format: float
           example: 10000
-    inline_response_200:
+    InlineResponse200:
       type: object
       properties:
         success:
           type: boolean
           example: true
-    id_deposit_body:
+    IdDepositBody:
       type: object
       properties:
         amount:
@@ -1104,7 +1215,7 @@ components:
           description: 증가할 금액
           format: float
           example: 50000
-    order_cancel_body:
+    OrderCancelBody:
       type: object
       properties:
         order_id:
