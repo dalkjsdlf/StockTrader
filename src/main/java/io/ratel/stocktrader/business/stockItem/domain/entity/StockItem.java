@@ -33,11 +33,11 @@ public class StockItem extends AuditableFields {
 
     @Setter
     @Column(nullable = false, length = 20, unique = true)
-    private String ItemCode;
+    private String itemCode;
 
     @Setter
     @Column(nullable = false, length = 100)
-    private String ItemName;
+    private String itemName;
 
     @Setter
     @Column(nullable = false)
@@ -49,7 +49,30 @@ public class StockItem extends AuditableFields {
     @Enumerated(EnumType.STRING)
     private Theme theme;
 
+    @Setter
+    @Column(nullable = false)
+    private double price;
+
     protected StockItem() {}
 
+    public StockItem(Long id, String itemCode, String itemName, Market market, Theme theme, double price) {
+        this.id = id;
+        this.theme = theme;
+        this.market = market;
+        this.itemName = itemName;
+        this.itemCode = itemCode;
+        this.price = price;
+    }
 
+    public void update(String itemCode, String itemName, Market market, Theme theme, Double price) {
+        this.itemCode = itemCode;
+        this.itemName = itemName;
+        this.market = market;
+        this.theme = theme;
+        this.price = price;
+    }
+
+//    public static StockItem of (Theme theme, Market market, String itemName, String itemCode) {
+//        return new StockItem(theme, market, itemName, itemCode);
+//    }
 }

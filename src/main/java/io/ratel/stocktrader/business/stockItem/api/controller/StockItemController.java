@@ -1,6 +1,6 @@
 package io.ratel.stocktrader.business.stockItem.api.controller;
 
-import io.ratel.stocktrader.business.stockItem.api.response.CreateStockItemResponseDto;
+import io.ratel.stocktrader.business.stockItem.api.response.RegisterStockItemResponseDto;
 import io.ratel.stocktrader.business.stockItem.api.response.StockItemResponseDto;
 import io.ratel.stocktrader.business.stockItem.domain.service.StockItemService;
 import lombok.RequiredArgsConstructor;
@@ -51,8 +51,8 @@ public class StockItemController{
      * @return 빈 CreateStockItemResponseDto 객체 반환
      */
     @PostMapping("")
-    public ResponseEntity<CreateStockItemResponseDto> createStockItem(@RequestBody CreateStockItemResponseDto createStockItemResponse) {
-        return ResponseEntity.ok(new CreateStockItemResponseDto());
+    public ResponseEntity<RegisterStockItemResponseDto> createStockItem(@RequestBody RegisterStockItemResponseDto createStockItemResponse) {
+        return ResponseEntity.ok(new RegisterStockItemResponseDto());
     }
 
     /**
