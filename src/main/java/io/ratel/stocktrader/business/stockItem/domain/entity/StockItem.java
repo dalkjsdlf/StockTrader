@@ -11,6 +11,8 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 
 /**
  * packageName  : io.ratel.stocktrader.business.domain.stockitem.entity
@@ -72,7 +74,16 @@ public class StockItem extends AuditableFields {
         this.price = price;
     }
 
-//    public static StockItem of (Theme theme, Market market, String itemName, String itemCode) {
-//        return new StockItem(theme, market, itemName, itemCode);
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StockItem stockItem = (StockItem) o;
+        return Objects.equals(id, stockItem.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
