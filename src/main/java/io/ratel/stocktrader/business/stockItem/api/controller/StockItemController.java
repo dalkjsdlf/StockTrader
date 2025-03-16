@@ -40,9 +40,9 @@ public class StockItemController{
      * 전체 종목 목록 조회
      * @return 빈 리스트 반환 (추후 서비스 로직 추가 예정)
      */
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<StockItemResponseDto>> getAllItems() {
-        return ResponseEntity.ok(Collections.emptyList());
+        return ResponseEntity.ok(stockItemService.getAllItems());
     }
 
     /**
