@@ -21,7 +21,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * ================================================
  * 2025. 3. 9.          dorris             최초생성
  */
-@Component
 public class StockItemRepositoryStub implements StockItemRepository{
     private final Map<Long, StockItem> stockItemMap = new HashMap<>();
     private final AtomicLong idGenerator = new AtomicLong(1);
