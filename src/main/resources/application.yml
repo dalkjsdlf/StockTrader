@@ -1,6 +1,36 @@
 spring:
   application:
     name: stock-trader
+  datasource:
+    url: jdbc:mysql://localhost:33061/stockTrader
+    username: dorris
+    password: Test1234!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5          # 최소 유지할 커넥션 개수
+      maximum-pool-size: 20     # 최대 커넥션 개수
+      idle-timeout: 30000       # 커넥션이 사용되지 않을 경우 제거되는 시간 (30초)
+      max-lifetime: 1800000     # 커넥션 최대 생존 시간 (30분)
+      connection-timeout: 30000 # 커넥션 획득 최대 대기 시간 (30초)
+      auto-commit: true         # 자동 커밋 활성화 여부
+      transaction-isolation: TRANSACTION_REPEATABLE_READ # 트랜잭션 격리 수준을 REPEATABLE READ로 설정
+  jpa:
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        hibernate.default_batch_fetch_size: 100
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database: mysql
+  sql:
+    init:
+      mode: always
+
+server:
+  port: 8600
 
 springdoc:
   api-docs:
