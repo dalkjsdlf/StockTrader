@@ -1,7 +1,6 @@
 package io.ratel.stocktrader.business.stockItem.domain.repository;
 
 import io.ratel.stocktrader.business.stockItem.domain.entity.StockItem;
-import io.ratel.stocktrader.common.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
