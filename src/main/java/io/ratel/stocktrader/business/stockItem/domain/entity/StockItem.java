@@ -32,25 +32,20 @@ public class StockItem extends BaseEntiry {
     @GeneratedValue
     private Long id;
 
-    @Setter
     @Column(nullable = false, length = 20, unique = true)
     private String itemCode;
 
-    @Setter
     @Column(nullable = false, length = 100)
     private String itemName;
 
-    @Setter
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Market market;
 
-    @Setter
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Theme theme;
 
-    @Setter
     @Column(nullable = false)
     private double price;
 
@@ -65,11 +60,11 @@ public class StockItem extends BaseEntiry {
         this.price = price;
     }
 
-    public void update(String itemCode, String itemName, Market market, Theme theme, Double price) {
-        this.itemCode = itemCode;
+    public void updateItemName(String itemName, Market market, Theme theme, Double price) {
         this.itemName = itemName;
-        this.market = market;
-        this.theme = theme;
+    }
+
+    public void updatePrice(Double price) {
         this.price = price;
     }
 
