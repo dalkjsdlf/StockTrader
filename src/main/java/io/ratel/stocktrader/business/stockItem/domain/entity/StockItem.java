@@ -1,7 +1,6 @@
 package io.ratel.stocktrader.business.stockItem.domain.entity;
 
-import io.ratel.stocktrader.common.entity.AuditableFields;
-import jakarta.annotation.Nullable;
+import io.ratel.stocktrader.common.entity.BaseEntiry;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -27,7 +26,7 @@ import java.util.Objects;
  */
 @Entity
 @Getter
-public class StockItem extends AuditableFields {
+public class StockItem extends BaseEntiry {
 
     @Id
     @GeneratedValue
