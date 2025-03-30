@@ -24,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ModifyStockItemRequestDto {
+public class ModifyStockItemRequest {
 
 
     /** 종목 코드 (6자 고정, 영문 대문자 + 숫자 조합) */

@@ -1,17 +1,8 @@
-package io.ratel.stocktrader.business.stockItem.api.request;
-
-import io.ratel.stocktrader.business.stockItem.domain.entity.Market;
-import io.ratel.stocktrader.business.stockItem.domain.entity.Theme;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+package io.ratel.stocktrader.business.stockItem.api.response;
 
 /**
  * packageName  : io.ratel.stocktrader.business.stockItem.api.response
- * fileName    : CreateStockItemResponse
+ * fileName    : StockItemResponse
  * author      : dorris
  * date        : 2025. 2. 19.
  * description :
@@ -21,12 +12,26 @@ import lombok.Setter;
  * 2025. 2. 19.          dorris             최초생성
  */
 
+import io.ratel.stocktrader.business.stockItem.domain.entity.Market;
+import io.ratel.stocktrader.business.stockItem.domain.entity.Theme;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+/**
+ * 종목 정보를 담는 DTO
+ */
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class RegisterStockItemRequestDto {
+public class StockItemResponse {
+    /** 종목 ID */
+    private Long id;
 
     /** 종목 코드 (6자 고정, 영문 대문자 + 숫자 조합) */
     private String itemCode;
