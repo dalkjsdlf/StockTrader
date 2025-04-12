@@ -11,4 +11,9 @@ public class OrderService {
         // TODO 구현시 삭제 테스트용: 주문 ID를 가짜로 할당하고 상태 설정
         return new Order(1L, OrderStatus.NEW);
     }
+
+    public Order sellStock(Order order) {
+        // TODO 구현시 삭제 테스트용: 주문 ID를 가짜로 할당하고 상태 설정
+        return new Order(1L, OrderStatus.NEW);
+    }
 }
