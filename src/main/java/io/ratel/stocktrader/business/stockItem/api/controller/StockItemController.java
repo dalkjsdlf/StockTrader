@@ -3,6 +3,7 @@ package io.ratel.stocktrader.business.stockItem.api.controller;
 import io.ratel.stocktrader.business.stockItem.api.response.RegisterStockItemResponseDto;
 import io.ratel.stocktrader.business.stockItem.api.response.StockItemResponse;
 import io.ratel.stocktrader.business.stockItem.domain.service.StockItemService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,11 +48,11 @@ public class StockItemController{
 
     /**
      * 새로운 종목 생성
-     * @param createStockItemResponse 종목 생성 요청 DTO
+     * @param registerStockItemResponse 종목 생성 요청 DTO
      * @return 빈 CreateStockItemResponseDto 객체 반환
      */
-    @PostMapping("")
-    public ResponseEntity<RegisterStockItemResponseDto> createStockItem(@RequestBody RegisterStockItemResponseDto createStockItemResponse) {
+    @PostMapping
+    public ResponseEntity<RegisterStockItemResponseDto> registerStockItem(@Valid @RequestBody RegisterStockItemResponseDto registerStockItemResponse) {
         return ResponseEntity.ok(new RegisterStockItemResponseDto());
     }
 

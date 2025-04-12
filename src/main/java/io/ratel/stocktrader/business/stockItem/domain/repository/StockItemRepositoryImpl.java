@@ -38,7 +38,7 @@ public class StockItemRepositoryImpl implements StockItemRepository {
 
     @Override
     public StockItem save(StockItem stockItem) {
-        return null;
+            return stockItemJpaRepository.save(stockItem);
     }
 
     @Override
