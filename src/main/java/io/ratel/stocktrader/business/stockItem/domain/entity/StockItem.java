@@ -1,7 +1,6 @@
 package io.ratel.stocktrader.business.stockItem.domain.entity;
 
-import io.ratel.stocktrader.common.entity.AuditableFields;
-import jakarta.annotation.Nullable;
+import io.ratel.stocktrader.common.entity.BaseEntiry;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -27,31 +26,26 @@ import java.util.Objects;
  */
 @Entity
 @Getter
-public class StockItem extends AuditableFields {
+public class StockItem extends BaseEntiry {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Setter
     @Column(nullable = false, length = 20, unique = true)
     private String itemCode;
 
-    @Setter
     @Column(nullable = false, length = 100)
     private String itemName;
 
-    @Setter
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Market market;
 
-    @Setter
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Theme theme;
 
-    @Setter
     @Column(nullable = false)
     private double price;
 
@@ -66,11 +60,11 @@ public class StockItem extends AuditableFields {
         this.price = price;
     }
 
-    public void update(String itemCode, String itemName, Market market, Theme theme, Double price) {
-        this.itemCode = itemCode;
+    public void updateItemName(String itemName, Market market, Theme theme, Double price) {
         this.itemName = itemName;
-        this.market = market;
-        this.theme = theme;
+    }
+
+    public void updatePrice(Double price) {
         this.price = price;
     }
 
