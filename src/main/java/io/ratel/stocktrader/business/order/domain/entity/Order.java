@@ -8,9 +8,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,45 +26,45 @@ import java.time.LocalDateTime;
  * 2025. 4. 12.          dorris             최초생성
  */
 @Entity
-@Table(name = "order")
 @Getter
 @NoArgsConstructor
 public class Order extends BaseEntiry {
 
     @Id
-    @Column(name = "order_id", nullable = false)
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
 
-    @Column(name = "member_id", nullable = false)
+    @Column(nullable = false)
     private Long memberId;
 
-    @Column(name = "item_id", nullable = false)
+    @Column(nullable = false)
     private Long itemId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "trade_type", length = 10, nullable = false)
+    @Column(length = 10, nullable = false)
     private TradeType tradeType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_type", length = 10, nullable = false)
+    @Column(length = 10, nullable = false)
     private OrderType orderType;
 
-    @Column(name = "quantity", nullable = false)
+    @Column(nullable = false)
     private Integer quantity;
 
-    @Column(name = "account_id", nullable = false)
+    @Column(nullable = false)
     private Long accountId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status", length = 20, nullable = false)
+    @Column(length = 20, nullable = false)
     private OrderStatus orderStatus;
 
-    @Column(name = "order_date", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime orderDate;
 
-    @Column(name = "settlement_date")
+    @Column
+    @Setter
     private LocalDateTime settlementDate;
 
     // ✅ 생성자 (Entity 내부 생성 용)
@@ -89,20 +86,6 @@ public class Order extends BaseEntiry {
                 memberId,
                 itemId,
                 TradeType.BUY,
-                orderType,
-                quantity,
-                accountId,
-                io.ratel.stocktrader.business.order.domain.entity.OrderStatus.NEW,
-                LocalDateTime.now()
-        );
-    }
-
-    // ✅ 매도 주문용 팩토리 메서드
-    public static Order ofSellOrder(Long memberId, Long itemId, Long accountId, Integer quantity, OrderType orderType) {
-        return new Order(
-                memberId,
-                itemId,
-                TradeType.SELL,
                 orderType,
                 quantity,
                 accountId,

@@ -80,7 +80,7 @@ class OrderControllerTest {
         @ParameterizedTest(name = "[{index}] 유효하지 않은 요청 - {0}")
         @MethodSource("invalidBuyOrderProvider")
         @DisplayName("실패 - 유효하지 않은 요청 시 400 반환")
-        void placeBuyOrder_fail_invalidInput(String description, BuyOrderRequest request) throws Exception {
+        void placeBuyOrder_fail_invalidInput(BuyOrderRequest request) throws Exception {
             mockMvc.perform(post("/api/v1/order/buy")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(request)))
@@ -114,8 +114,7 @@ class OrderControllerTest {
                     Arguments.of("price 0.0", createRequest(101L, 10, 0.0, 1001L, 100L)),
                     Arguments.of("price 음수", createRequest(101L, 10, -100.0, 1001L, 100L)),
                     Arguments.of("user_id 누락", createRequest(101L, 10, 1500.0, null, 100L)),
-                    Arguments.of("account_id 빈 문자열", createRequest(101L, 10, 1500.0, 1001L, 100L)),
-                    Arguments.of("account_id 공백만", createRequest(101L, 10, 1500.0, 1001L, 100L))
+                    Arguments.of("account_id null", createRequest(101L, 10, 1500.0, 1001L, null))
             );
         }
 

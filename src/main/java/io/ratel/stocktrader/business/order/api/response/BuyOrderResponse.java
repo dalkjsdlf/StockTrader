@@ -1,17 +1,10 @@
 package io.ratel.stocktrader.business.order.api.response;
 
 import io.ratel.stocktrader.business.order.domain.entity.Order;
+import lombok.Getter;
 
-public class BuyOrderResponse {
-    private Long orderId;
-    private String status;
-
-    public BuyOrderResponse(Long orderId, String status) {
-        this.orderId = orderId;
-        this.status = status;
-    }
-
-
+@Getter
+public record BuyOrderResponse(Long orderId, String status) {
     /**
      * Order → BuyOrderResponse 변환
      */
