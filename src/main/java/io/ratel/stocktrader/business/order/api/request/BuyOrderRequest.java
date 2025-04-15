@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class BuyOrderRequest {
     @NotNull(message = "종목 ID는 필수입니다.")
-    private Integer itemId;
+    private Long itemId;
 
     @NotNull(message = "주문 수량은 필수입니다.")
     @Min(value = 1, message = "주문 수량은 1 이상이어야 합니다.")
@@ -24,10 +24,10 @@ public class BuyOrderRequest {
     private Double price;
 
     @NotNull(message = "사용자 ID는 필수입니다.")
-    private Integer userId;
+    private Long userId;
 
     @NotBlank(message = "계좌 ID는 필수입니다.")
-    private String accountId;
+    private Long accountId;
 
     /**
      * BuyOrderRequest → Order 변환
@@ -36,7 +36,7 @@ public class BuyOrderRequest {
         return Order.ofBuyOrder(
                 this.userId,                // memberId
                 this.itemId,                // itemId
-                Integer.parseInt(this.accountId.replaceAll("-", "")), // accountId (문자열 → 숫자 변환)
+                this.accountId, // accountId (문자열 → 숫자 변환)
                 this.quantity,               // 수량
                 OrderType.LIMIT              // 현재는 LIMIT 하드코딩 (필요시 필드 추가)
         );

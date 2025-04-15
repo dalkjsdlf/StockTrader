@@ -6,7 +6,7 @@ public class BuyOrderResponse {
     private Long orderId;
     private String status;
 
-    public BuyOrderResponse(Long orderId, String name) {
+    public BuyOrderResponse(Long orderId, String status) {
         this.orderId = orderId;
         this.status = status;
     }

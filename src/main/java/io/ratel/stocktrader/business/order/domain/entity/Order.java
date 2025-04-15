@@ -41,10 +41,10 @@ public class Order extends BaseEntiry {
 
 
     @Column(name = "member_id", nullable = false)
-    private Integer memberId;
+    private Long memberId;
 
     @Column(name = "item_id", nullable = false)
-    private Integer itemId;
+    private Long itemId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "trade_type", length = 10, nullable = false)
@@ -58,7 +58,7 @@ public class Order extends BaseEntiry {
     private Integer quantity;
 
     @Column(name = "account_id", nullable = false)
-    private Integer accountId;
+    private Long accountId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status", length = 20, nullable = false)
@@ -71,8 +71,8 @@ public class Order extends BaseEntiry {
     private LocalDateTime settlementDate;
 
     // ✅ 생성자 (Entity 내부 생성 용)
-    public Order(Integer memberId, Integer itemId, TradeType tradeType, OrderType orderType,
-                 Integer quantity, Integer accountId, OrderStatus orderStatus, LocalDateTime orderDate) {
+    public Order(Long memberId, Long itemId, TradeType tradeType, OrderType orderType,
+                 Integer quantity, Long accountId, OrderStatus orderStatus, LocalDateTime orderDate) {
         this.memberId = memberId;
         this.itemId = itemId;
         this.tradeType = tradeType;
@@ -84,7 +84,7 @@ public class Order extends BaseEntiry {
     }
 
     // ✅ 매수 주문용 팩토리 메서드
-    public static Order ofBuyOrder(Integer memberId, Integer itemId, Integer accountId, Integer quantity, OrderType orderType) {
+    public static Order ofBuyOrder(Long memberId, Long itemId, Long accountId, Integer quantity, OrderType orderType) {
         return new Order(
                 memberId,
                 itemId,
@@ -98,7 +98,7 @@ public class Order extends BaseEntiry {
     }
 
     // ✅ 매도 주문용 팩토리 메서드
-    public static Order ofSellOrder(Integer memberId, Integer itemId, Integer accountId, Integer quantity, OrderType orderType) {
+    public static Order ofSellOrder(Long memberId, Long itemId, Long accountId, Integer quantity, OrderType orderType) {
         return new Order(
                 memberId,
                 itemId,

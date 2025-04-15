@@ -4,9 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ratel.stocktrader.business.order.api.controller.OrderController;
 import io.ratel.stocktrader.business.order.api.request.BuyOrderRequest;
 import io.ratel.stocktrader.business.order.domain.entity.Order;
-import io.ratel.stocktrader.business.order.domain.entity.OrderStatus;
 import io.ratel.stocktrader.business.order.domain.entity.OrderType;
-import io.ratel.stocktrader.business.order.domain.service.OrderService;
+import io.ratel.stocktrader.business.order.domain.service.OrderServiceImpl;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -40,13 +39,13 @@ class OrderControllerTest {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private OrderService orderService;
+    private OrderServiceImpl orderService;
 
     @TestConfiguration
     static class TestMockConfig {
         @Bean
-        public OrderService orderService() {
-            return Mockito.mock(OrderService.class);
+        public OrderServiceImpl orderService() {
+            return Mockito.mock(OrderServiceImpl.class);
         }
     }
 
@@ -58,12 +57,12 @@ class OrderControllerTest {
         @Test
         @DisplayName("성공 - 올바른 요청일 경우 201 반환")
         void placeBuyOrder_success() throws Exception {
-            BuyOrderRequest request = createRequest(101, 10, 1500.0, 1001, "123-4567-8901");
+            BuyOrderRequest request = createRequest(101L, 10, 1500.0, 1001L, 100L);
 
             Order savedOrder = Order.ofBuyOrder(
-                    1001,  // userId
-                    101,   // itemId
-                    12345678901, // accountId (숫자 변환된 값)
+                    1001L,  // userId
+                    101L,   // itemId
+                    12345678901L, // accountId (숫자 변환된 값)
                     10,    // quantity
                     OrderType.LIMIT // 주문 방식은 임시 하드코딩
             );
@@ -109,18 +108,18 @@ class OrderControllerTest {
 
         private static Stream<Arguments> invalidBuyOrderProvider() {
             return Stream.of(
-                    Arguments.of("item_id 누락", createRequest(null, 10, 1500.0, 1001, "123-4567-8901")),
-                    Arguments.of("quantity 0", createRequest(101, 0, 1500.0, 1001, "123-4567-8901")),
-                    Arguments.of("quantity 음수", createRequest(101, -5, 1500.0, 1001, "123-4567-8901")),
-                    Arguments.of("price 0.0", createRequest(101, 10, 0.0, 1001, "123-4567-8901")),
-                    Arguments.of("price 음수", createRequest(101, 10, -100.0, 1001, "123-4567-8901")),
-                    Arguments.of("user_id 누락", createRequest(101, 10, 1500.0, null, "123-4567-8901")),
-                    Arguments.of("account_id 빈 문자열", createRequest(101, 10, 1500.0, 1001, "")),
-                    Arguments.of("account_id 공백만", createRequest(101, 10, 1500.0, 1001, "   "))
+                    Arguments.of("item_id 누락", createRequest(null, 10, 1500.0, 1001L, 100L)),
+                    Arguments.of("quantity 0", createRequest(101L, 0, 1500.0, 1001L, 100L)),
+                    Arguments.of("quantity 음수", createRequest(101L, -5, 1500.0, 1001L, 100L)),
+                    Arguments.of("price 0.0", createRequest(101L, 10, 0.0, 1001L, 100L)),
+                    Arguments.of("price 음수", createRequest(101L, 10, -100.0, 1001L, 100L)),
+                    Arguments.of("user_id 누락", createRequest(101L, 10, 1500.0, null, 100L)),
+                    Arguments.of("account_id 빈 문자열", createRequest(101L, 10, 1500.0, 1001L, 100L)),
+                    Arguments.of("account_id 공백만", createRequest(101L, 10, 1500.0, 1001L, 100L))
             );
         }
 
-        private static BuyOrderRequest createRequest(Integer itemId, Integer quantity, Double price, Integer userId, String accountId) {
+        private static BuyOrderRequest createRequest(Long itemId, Integer quantity, Double price, Long userId, Long accountId) {
             BuyOrderRequest request = new BuyOrderRequest();
             request.setItemId(itemId);
             request.setQuantity(quantity);
