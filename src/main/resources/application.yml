@@ -1,9 +1,12 @@
+logging:
+  config: classpath:logback/logback-spring.xml
+
 spring:
   application:
     name: stock-trader
   datasource:
     url: jdbc:mysql://localhost:33061/stockTrader
-    username: dorris
+    username: tstapp
     password: Test1234!
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
