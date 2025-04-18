@@ -2,8 +2,8 @@ spring:
   application:
     name: stock-trader
   datasource:
-    url: jdbc:mysql://localhost:33061/stockTrader
-    username: dorris
+    url: jdbc:mysql://172.30.1.71:33061/stockTrader
+    username: tstapp
     password: Test1234!
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:

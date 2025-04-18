@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: msqlTest
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "33061:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Test1234!
+      MYSQL_DATABASE: stockTrader
+      MYSQL_USER: tstapp
+      MYSQL_PASSWORD: Test1234!
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
+    volumes:
+      - st-msql-data:/var/lib/mysql
+      - st-msql-conf:/etc/mysql
+    networks:
+      - mysql_net
+
+volumes:
+  st-msql-data:
+  st-msql-conf:
+
+networks:
+  mysql_net:
