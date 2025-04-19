@@ -1,13 +1,12 @@
 package io.ratel.stocktrader.business.stockItem.domain.service;
 
-import io.ratel.stocktrader.business.stockItem.api.request.ModifyStockItemRequestDto;
-import io.ratel.stocktrader.business.stockItem.api.request.RegisterStockItemRequestDto;
+import io.ratel.stocktrader.business.stockItem.api.request.ModifyStockItemRequest;
+import io.ratel.stocktrader.business.stockItem.api.request.RegisterStockItemRequest;
 import io.ratel.stocktrader.business.stockItem.api.response.RegisterStockItemResponseDto;
-import io.ratel.stocktrader.business.stockItem.api.response.StockItemResponseDto;
+import io.ratel.stocktrader.business.stockItem.api.response.StockItemResponse;
 import io.ratel.stocktrader.business.stockItem.domain.entity.StockItem;
 import io.ratel.stocktrader.business.stockItem.domain.repository.StockItemRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,11 +35,11 @@ public class StockItemService{
      * 전체 종목 목록 조회
      * @return 빈 리스트 반환 (추후 데이터 연동 예정)
      */
-    public List<StockItemResponseDto> getAllItems() {
+    public List<StockItemResponse> getAllItems() {
         List<StockItem> stockItems = stockItemRepository.findAll();
         /*TODO REFACTORING : ENTITY TO DTO는 DTO에 로직을 넣는다.*/
         return stockItems.stream().map(stock->
-                  StockItemResponseDto.builder().
+                  StockItemResponse.builder().
                     itemCode(stock.getItemCode()).
                           itemName(stock.getItemName()).
                           market(stock.getMarket()).
@@ -55,7 +54,7 @@ public class StockItemService{
      * @param registerStockItemRequest 종목 생성 요청 DTO
      * @return null 반환 (추후 생성 로직 추가 예정)
      */
-    public RegisterStockItemResponseDto registerStockItem(RegisterStockItemRequestDto registerStockItemRequest) {
+    public RegisterStockItemResponseDto registerStockItem(RegisterStockItemRequest registerStockItemRequest) {
 
         StockItem newStockItem = new StockItem(null,
                 registerStockItemRequest.getItemCode(),
@@ -80,12 +79,12 @@ public class StockItemService{
      * @param id 종목 ID
      * @return null 반환 (추후 조회 로직 추가 예정)
      */
-    public StockItemResponseDto getItemById(Long id) {
+    public StockItemResponse getItemById(Long id) {
 
         StockItem stockItem = stockItemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Stock item not found"));
         /*TODO REFACTORING : ENTITY TO DTO는 DTO에 로직을 넣는다.*/
-        return StockItemResponseDto.builder()
+        return StockItemResponse.builder()
                 .itemCode(stockItem.getItemCode())
                 .itemName(stockItem.getItemName())
                 .market(stockItem.getMarket())
@@ -99,12 +98,12 @@ public class StockItemService{
      * @param keyword 검색 키워드
      * @return 빈 리스트 반환 (추후 검색 로직 추가 예정)
      */
-    public List<StockItemResponseDto> searchItems(String keyword) {
+    public List<StockItemResponse> searchItems(String keyword) {
 
         List<StockItem> stockItems = stockItemRepository.findByKeyword(keyword);
 
         return stockItems.stream().map(stock->
-                StockItemResponseDto.builder().
+                StockItemResponse.builder().
                         itemCode(stock.getItemCode()).
                         itemName(stock.getItemName()).
                         market(stock.getMarket()).
@@ -137,7 +136,7 @@ public class StockItemService{
      * @param requestDto 수정할 정보가 담긴 DTO
      * @return 수정된 종목 정보 반환
      */
-    public StockItemResponseDto modifyItem(Long id, ModifyStockItemRequestDto requestDto) {
+    public StockItemResponse modifyItem(Long id, ModifyStockItemRequest requestDto) {
         StockItem stockItem = stockItemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Stock item not found"));
 
@@ -152,7 +151,7 @@ public class StockItemService{
         StockItem updatedStockItem = stockItemRepository.save(stockItem);
 
         /*TODO REFACTORING : ENTITY TO DTO는 DTO에 로직을 넣는다.*/
-        return StockItemResponseDto.builder()
+        return StockItemResponse.builder()
                 .itemCode(updatedStockItem.getItemCode())
                 .itemName(updatedStockItem.getItemName())
                 .market(updatedStockItem.getMarket())

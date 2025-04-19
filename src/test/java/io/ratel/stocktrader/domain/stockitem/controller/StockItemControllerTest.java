@@ -1,8 +1,8 @@
 package io.ratel.stocktrader.domain.stockitem.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.ratel.stocktrader.business.stockItem.api.request.ModifyStockItemRequestDto;
-import io.ratel.stocktrader.business.stockItem.api.request.RegisterStockItemRequestDto;
+import io.ratel.stocktrader.business.stockItem.api.request.ModifyStockItemRequest;
+import io.ratel.stocktrader.business.stockItem.api.request.RegisterStockItemRequest;
 import io.ratel.stocktrader.business.stockItem.domain.entity.Market;
 import io.ratel.stocktrader.business.stockItem.domain.entity.Theme;
 import io.ratel.stocktrader.business.stockItem.domain.service.StockItemService;
@@ -54,7 +54,7 @@ public class StockItemControllerTest {
                 .build();
         this.objectMapper = new ObjectMapper();
 
-        RegisterStockItemRequestDto stock1 = RegisterStockItemRequestDto.builder()
+        RegisterStockItemRequest stock1 = RegisterStockItemRequest.builder()
                 .itemCode("ABC123")
                 .itemName("삼성전자")
                 .market(Market.KOSPI)
@@ -62,7 +62,7 @@ public class StockItemControllerTest {
                 .price(50000)
                 .build();
 
-        RegisterStockItemRequestDto stock2 = RegisterStockItemRequestDto.builder()
+        RegisterStockItemRequest stock2 = RegisterStockItemRequest.builder()
                 .itemCode("XYZ789")
                 .itemName("카카오")
                 .market(Market.KOSPI)
@@ -88,7 +88,7 @@ public class StockItemControllerTest {
     @DisplayName("[성공] 새로운 종목을 등록하면 201 Created와 생성된 종목 정보를 반환한다.")
     void givenStockItemRequestWhenCreateStockItemThenReturnCreatedStockItem() throws Exception {
         // Given
-        RegisterStockItemRequestDto request = RegisterStockItemRequestDto.builder()
+        RegisterStockItemRequest request = RegisterStockItemRequest.builder()
                 .itemCode("NAV333")
                 .itemName("네이버")
                 .market(Market.KOSPI)
@@ -109,7 +109,7 @@ public class StockItemControllerTest {
     @DisplayName("[실패] 중복된 종목 ID로 등록 시 400 Bad Request 반환")
     void givenDuplicateStockItemIdWhenCreateStockItemThenReturnBadRequest() throws Exception {
         // Given
-        RegisterStockItemRequestDto duplicateRequest = RegisterStockItemRequestDto.builder()
+        RegisterStockItemRequest duplicateRequest = RegisterStockItemRequest.builder()
                 .itemCode("ABC123") // 이미 존재하는 종목 코드
                 .itemName("네이버")
                 .market(Market.KOSPI)
@@ -148,7 +148,7 @@ public class StockItemControllerTest {
     @DisplayName("[실패] 특정 종목 수정 시 존재하지 않는 종목이면 404 Not Found 반환")
     void givenInvalidStockIdWhenModifyStockItemThenReturnNotFound() throws Exception {
         // Given
-        ModifyStockItemRequestDto modifyRequest = new ModifyStockItemRequestDto(
+        ModifyStockItemRequest modifyRequest = new ModifyStockItemRequest(
                 "ZZZ999", "토스", Market.KONEX, Theme.BH001, 3000.0);
 
         // When & Then

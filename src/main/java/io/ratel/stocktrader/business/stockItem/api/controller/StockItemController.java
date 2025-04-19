@@ -1,7 +1,7 @@
 package io.ratel.stocktrader.business.stockItem.api.controller;
 
 import io.ratel.stocktrader.business.stockItem.api.response.RegisterStockItemResponseDto;
-import io.ratel.stocktrader.business.stockItem.api.response.StockItemResponseDto;
+import io.ratel.stocktrader.business.stockItem.api.response.StockItemResponse;
 import io.ratel.stocktrader.business.stockItem.domain.service.StockItemService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -41,9 +41,9 @@ public class StockItemController{
      * 전체 종목 목록 조회
      * @return 빈 리스트 반환 (추후 서비스 로직 추가 예정)
      */
-    @GetMapping("")
-    public ResponseEntity<List<StockItemResponseDto>> getAllItems() {
-        return ResponseEntity.ok(Collections.emptyList());
+    @GetMapping
+    public ResponseEntity<List<StockItemResponse>> getAllItems() {
+        return ResponseEntity.ok(stockItemService.getAllItems());
     }
 
     /**
@@ -62,8 +62,8 @@ public class StockItemController{
      * @return 빈 StockItemResponseDto 객체 반환
      */
     @GetMapping("/{id}")
-    public ResponseEntity<StockItemResponseDto> getItemById(@PathVariable int id) {
-        return ResponseEntity.ok(new StockItemResponseDto());
+    public ResponseEntity<StockItemResponse> getItemById(@PathVariable int id) {
+        return ResponseEntity.ok(new StockItemResponse());
     }
 
     /**
@@ -72,7 +72,7 @@ public class StockItemController{
      * @return 빈 리스트 반환 (추후 서비스 로직 추가 예정)
      */
     @GetMapping("/search")
-    public ResponseEntity<List<StockItemResponseDto>> searchItems(@RequestParam String keyword) {
+    public ResponseEntity<List<StockItemResponse>> searchItems(@RequestParam String keyword) {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
@@ -82,7 +82,7 @@ public class StockItemController{
      * @return 빈 리스트 반환 (추후 서비스 로직 추가 예정)
      */
     @GetMapping("/Detail/{id}")
-    public ResponseEntity<List<StockItemResponseDto>> getDetailStockItem(@PathVariable int id) {
+    public ResponseEntity<List<StockItemResponse>> getDetailStockItem(@PathVariable int id) {
         return ResponseEntity.ok(Collections.emptyList());
     }
 }
