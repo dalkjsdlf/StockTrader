@@ -8,17 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * packageName  : io.ratel.stocktrader.business.stockItem.domain.entity
- * fileName    : ModifyStockItemRequestDto
- * author      : dorris
- * date        : 2025. 3. 9.
- * description :
- * ================================================
- * DATE              AUTHOR              NOTE
- * ================================================
- * 2025. 3. 9.          dorris             최초생성
- */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

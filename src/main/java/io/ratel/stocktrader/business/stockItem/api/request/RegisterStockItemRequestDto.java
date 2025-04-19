@@ -11,17 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.validation.constraints.Pattern;
 
-/**
- * packageName  : io.ratel.stocktrader.business.stockItem.api.response
- * fileName    : CreateStockItemResponse
- * author      : dorris
- * date        : 2025. 2. 19.
- * description :
- * ================================================
- * DATE              AUTHOR              NOTE
- * ================================================
- * 2025. 2. 19.          dorris             최초생성
- */
 
 @Builder
 @AllArgsConstructor
