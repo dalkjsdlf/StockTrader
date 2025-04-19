@@ -37,24 +37,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InvalidInput:
+                  $ref: "#/components/examples/InvalidInput"
         "401":
           description: 인증 실패 (로그인이 필요함)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                ForbiddenUser:
+                  $ref: "#/components/examples/ForbiddenUser"
         "403":
           description: 권한 부족 (관리자만 접근 가능)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                ForbiddenUser:
+                  $ref: "#/components/examples/ForbiddenUser"
         "404":
           description: 사용자를 찾을 수 없음 (등록된 사용자가 없음)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                UserNotFound:
+                  $ref: "#/components/examples/UserNotFound"
         "429":
           description: 요청 과다 (Rate Limit 초과)
           content:
@@ -99,21 +111,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               examples:
-                invalid_input:
-                  summary: 잘못된 입력값
-                  value:
-                    error: Bad Request
-                    message: 입력값이 올바르지 않습니다.
-                duplicated_user_id:
-                  summary: 중복된 사용자 ID
-                  value:
-                    error: Bad Request
-                    message: 이미 존재하는 사용자ID입니다.
-                duplicated_email:
-                  summary: 중복된 이메일
-                  value:
-                    error: Bad Request
-                    message: 이미 존재하는 이메일입니다.
+                InvalidInput:
+                  $ref: "#/components/examples/InvalidInput"
+                DuplicatedUserId:
+                  $ref: "#/components/examples/DuplicatedUserId"
+                DuplicatedEmail:
+                  $ref: "#/components/examples/DuplicatedEmail"
   /api/v1/members/{member_id}:
     get:
       tags:
@@ -143,12 +146,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InvalidIdFormat:
+                  $ref: "#/components/examples/InvalidIdFormat"
         "404":
           description: 존재하지 않는 사용자 ID
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                UserNotFound:
+                  $ref: "#/components/examples/UserNotFound"
     delete:
       tags:
       - Member
@@ -173,12 +182,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InvalidIdFormat:
+                  $ref: "#/components/examples/InvalidIdFormat"
         "404":
           description: 존재하지 않는 사용자 ID
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                UserNotFound:
+                  $ref: "#/components/examples/UserNotFound"
     patch:
       tags:
       - Member
@@ -214,27 +229,21 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               examples:
-                invalid_input:
-                  summary: 잘못된 입력값
-                  value:
-                    error: Bad Request
-                    message: 입력값이 올바르지 않습니다.
-                duplicated_user_id:
-                  summary: 중복된 사용자 ID
-                  value:
-                    error: Bad Request
-                    message: 이미 존재하는 사용자ID입니다.
-                duplicated_email:
-                  summary: 중복된 이메일
-                  value:
-                    error: Bad Request
-                    message: 이미 존재하는 이메일입니다.
+                InvalidInput:
+                  $ref: "#/components/examples/InvalidInput"
+                DuplicatedUserId:
+                  $ref: "#/components/examples/DuplicatedUserId"
+                DuplicatedEmail:
+                  $ref: "#/components/examples/DuplicatedEmail"
         "404":
           description: 존재하지 않는 사용자 ID
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                UserNotFound:
+                  $ref: "#/components/examples/UserNotFound"
   /api/v1/accounts:
     get:
       tags:
@@ -266,18 +275,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InvalidIdFormat:
+                  $ref: "#/components/examples/InvalidIdFormat"
         "401":
           description: 인증 실패 (로그인이 필요함)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                ForbiddenUser:
+                  $ref: "#/components/examples/ForbiddenUser"
         "403":
           description: 권한 부족 (로그인된 사용자만 접근 가능)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                ForbiddenUser:
+                  $ref: "#/components/examples/ForbiddenUser"
         "500":
           description: 서버 내부 오류
           content:
@@ -313,12 +331,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InvalidIdFormat:
+                  $ref: "#/components/examples/InvalidIdFormat"
         "404":
           description: 존재하지 않는 계좌 ID
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                AccountNotFound:
+                  $ref: "#/components/examples/AccountNotFound"
   /api/v1/accounts/{account_id}/stocks:
     get:
       tags:
@@ -350,12 +374,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                INVALID_ACCOUNT_ID:
+                  $ref: "#/components/examples/InvalidIdFormat"
         "404":
           description: 존재하지 않는 계좌 ID
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                AccountNotFound:
+                  $ref: "#/components/examples/AccountNotFound"
   /api/v1/accounts/{account_id}/withdraw:
     patch:
       tags:
@@ -391,18 +421,29 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InvalidIdFormat:
+                  $ref: "#/components/examples/InvalidIdFormat"
+                InvalidAmountType:
+                  $ref: "#/components/examples/InvalidAmountType"
         "404":
           description: 존재하지 않는 계좌 ID
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                ITEM_NOT_FOUND:
+                  $ref: "#/components/examples/AccountNotFound"
         "422":
           description: 잔고 부족
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InsufficientFunds:
+                  $ref: "#/components/examples/InsufficientFunds"
   /api/v1/accounts/{account_id}/deposit:
     patch:
       tags:
@@ -438,43 +479,51 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InvalidInput:
+                  $ref: "#/components/examples/InvalidInput"
+                InvalidAmountType:
+                  $ref: "#/components/examples/InvalidAmountType"
         "404":
           description: 존재하지 않는 계좌 ID
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                AccountNotFound:
+                  $ref: "#/components/examples/AccountNotFound"
   /api/v1/stockItems:
     get:
       tags:
-      - StockItem
+        - StockItem
       summary: 종목정보 다건 조회
       description: 모든 종목 정보를 조회합니다. 기본 정렬 기준은 종목 코드(item_code) 오름차순입니다.
       operationId: getAllItems
       parameters:
-      - name: sort
-        in: query
-        description: "정렬 기준 (기본값: item_code)"
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-          enum:
-          - item_code
-          - item_name
-          - market
-      - name: order
-        in: query
-        description: "정렬 방향 (asc: 오름차순, desc: 내림차순, 기본값: asc)"
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-          enum:
-          - asc
-          - desc
+        - name: sort
+          in: query
+          description: "정렬 기준 (기본값: item_code)"
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - item_code
+              - item_name
+              - market
+        - name: order
+          in: query
+          description: "정렬 방향 (asc: 오름차순, desc: 내림차순, 기본값: asc)"
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
       responses:
         "200":
           description: "조회 성공 (기본 정렬: item_code 오름차순)"
@@ -490,9 +539,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InvalidInput:
+                  $ref: "#/components/examples/InvalidInput"
     post:
       tags:
-      - StockItem
+        - StockItem
       summary: 새 종목 등록
       description: 새로운 종목을 등록합니다.
       operationId: createItem
@@ -516,46 +568,30 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               examples:
-                invalid_item_code:
-                  summary: 종목 코드가 6자가 아닌 경우
-                  value:
-                    error: Bad Request
-                    message: Invalid item_code. It must be exactly 6 characters long
-                      and contain only uppercase letters and numbers.
-                invalid_item_name:
-                  summary: 종목명이 100자를 초과한 경우
-                  value:
-                    error: Bad Request
-                    message: "Invalid item_name. It must be 100 characters or less\
-                      \ and contain only Korean, English letters, and numbers."
-                invalid_market:
-                  summary: 시장구분이 10자를 초과하거나 잘못된 문자 포함
-                  value:
-                    error: Bad Request
-                    message: Invalid market. It must be 10 characters or less and
-                      contain only Korean or uppercase English letters.
-                invalid_theme:
-                  summary: 테마 코드가 5자가 아닌 경우
-                  value:
-                    error: Bad Request
-                    message: Invalid theme. It must be exactly 5 characters long and
-                      contain only uppercase letters and numbers.
-  /api/v1/items/{item_id}:
+                InvalidItemCode:
+                  $ref: "#/components/examples/InvalidItemCode"
+                InvalidItemName:
+                  $ref: "#/components/examples/InvalidItemName"
+                InvalidMarket:
+                  $ref: "#/components/examples/InvalidMarket"
+                InvalidTheme:
+                  $ref: "#/components/examples/InvalidTheme"
+  /api/v1/stockItems/{item_id}:
     get:
       tags:
-      - StockItem
+        - StockItem
       summary: 종목 단건 조회
       description: 종목 ID를 이용하여 특정 종목을 조회합니다. ID는 숫자여야 합니다.
       operationId: getItemById
       parameters:
-      - name: id
-        in: path
-        description: 조회할 종목 ID (숫자만 허용)
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: 조회할 종목 ID (숫자만 허용)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
       responses:
         "200":
           description: 조회 성공
@@ -569,56 +605,59 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-              example:
-                error: Bad Request
-                message: Invalid ID format. ID must be a number.
+              examples:
+                InvalidIdFormat:
+                  $ref: "#/components/examples/InvalidIdFormat"
         "404":
           description: 종목을 찾을 수 없음
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /api/v1/items/search:
+              examples:
+                ItemNotFound:
+                  $ref: "#/components/examples/ItemNotFound"
+  /api/v1/stockItems/search:
     get:
       tags:
-      - StockItem
+        - StockItem
       summary: 종목 검색
       description: "키워드를 기반으로 종목을 검색합니다. 키워드는 최대 100자이며, 특수문자는 허용되지 않습니다."
       operationId: searchItems
       parameters:
-      - name: keyword
-        in: query
-        description: "검색할 키워드 (최대 100자, 특수문자 금지)"
-        required: true
-        style: form
-        explode: true
-        schema:
-          maxLength: 100
-          pattern: "^[a-zA-Z0-9가-힣 ]+$"
-          type: string
-      - name: sort
-        in: query
-        description: "정렬 기준 (기본값: item_code)"
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-          enum:
-          - item_code
-          - item_name
-          - market
-      - name: order
-        in: query
-        description: "정렬 방향 (asc: 오름차순, desc: 내림차순, 기본값: asc)"
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-          enum:
-          - asc
-          - desc
+        - name: keyword
+          in: query
+          description: "검색할 키워드 (최대 100자, 특수문자 금지)"
+          required: true
+          style: form
+          explode: true
+          schema:
+            maxLength: 100
+            pattern: "^[a-zA-Z0-9가-힣 ]+$"
+            type: string
+        - name: sort
+          in: query
+          description: "정렬 기준 (기본값: item_code)"
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - item_code
+              - item_name
+              - market
+        - name: order
+          in: query
+          description: "정렬 방향 (asc: 오름차순, desc: 내림차순, 기본값: asc)"
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
       responses:
         "200":
           description: "검색 성공 (기본 정렬: item_code 오름차순)"
@@ -634,22 +673,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /api/v1/items/detail/{item_id}:
+              examples:
+                InvalidInput:
+                  $ref: "#/components/examples/InvalidInput"
+  /api/v1/stockItems/detail/{item_id}:
     get:
       tags:
-      - StockItem
+        - StockItem
       summary: 종목 상세 조회
       description: 종목 ID를 이용하여 종목 상세 정보를 조회합니다. ID는 숫자여야 합니다.
       operationId: getItemDetailById
       parameters:
-      - name: id
-        in: path
-        description: 조회할 종목 ID (숫자만 허용)
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: 조회할 종목 ID (숫자만 허용)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
       responses:
         "200":
           description: 조회 성공
@@ -663,16 +705,22 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InvalidIdFormat:
+                  $ref: "#/components/examples/InvalidIdFormat"
         "404":
           description: 종목을 찾을 수 없음
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                ItemNotFound:
+                  $ref: "#/components/examples/ItemNotFound"
   /api/v1/order/buy:
     post:
       tags:
-      - Order
+        - Order
       summary: 주식 매수 주문
       description: 사용자가 특정 종목을 매수하는 주문을 생성합니다.
       operationId: placeBuyOrder
@@ -696,20 +744,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               examples:
-                invalid_format:
-                  summary: 입력값 형식 오류
-                  value:
-                    error: Bad Request
-                    message: 종목ID는 숫자 형식이어야 합니다.
+                InvalidInput:
+                  $ref: "#/components/examples/InvalidInput"
         "403":
           description: 인가되지 않은 사용자
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-              example:
-                error: Forbidden
-                message: 해당 사용자에게 매수 권한이 없습니다.
+              examples:
+                ForbiddenUser:
+                  $ref: "#/components/examples/ForbiddenUser"
         "404":
           description: 존재하지 않는 데이터
           content:
@@ -717,16 +762,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               examples:
-                item_not_found:
-                  summary: 존재하지 않는 종목
-                  value:
-                    error: Not Found
-                    message: 해당 종목ID가 존재하지 않습니다.
-                user_not_found:
-                  summary: 존재하지 않는 사용자
-                  value:
-                    error: Not Found
-                    message: 해당 사용자ID가 존재하지 않습니다.
+                ItemNotFound:
+                  $ref: "#/components/examples/ItemNotFound"
+                UserNotFound:
+                  $ref: "#/components/examples/UserNotFound"
         "422":
           description: 업무 처리 실패
           content:
@@ -734,20 +773,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               examples:
-                insufficient_funds:
-                  summary: 잔고 부족
-                  value:
-                    error: Unprocessable Entity
-                    message: 계좌 잔액이 부족합니다.
-                execution_failed:
-                  summary: 주문 체결 실패
-                  value:
-                    error: Unprocessable Entity
-                    message: 주문 체결에 실패했습니다.
+                InsufficientFunds:
+                  $ref: "#/components/examples/InsufficientFunds"
+                ExecutionFailed:
+                  $ref: "#/components/examples/ExecutionFailed"
   /api/v1/order/sell:
     post:
       tags:
-      - Order
+        - Order
       summary: 주식 매도 주문
       description: 사용자가 특정 종목을 매도하는 주문을 생성합니다.
       operationId: placeSellOrder
@@ -770,18 +803,29 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InvalidInput:
+                  $ref: "#/components/examples/InvalidInput"
         "403":
           description: 인가되지 않은 사용자
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                ForbiddenUser:
+                  $ref: "#/components/examples/ForbiddenUser"
         "404":
           description: 존재하지 않는 데이터
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                ItemNotFound:
+                  $ref: "#/components/examples/ItemNotFound"
+                UserNotFound:
+                  $ref: "#/components/examples/UserNotFound"
         "422":
           description: 업무 처리 실패
           content:
@@ -789,20 +833,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               examples:
-                insufficient_quantity:
-                  summary: 보유 주식 부족
-                  value:
-                    error: Unprocessable Entity
-                    message: 보유 주식 수량이 부족합니다.
-                execution_failed:
-                  summary: 주문 체결 실패
-                  value:
-                    error: Unprocessable Entity
-                    message: 주문 체결에 실패했습니다.
+                InsufficientQuantity:
+                  $ref: "#/components/examples/InsufficientQuantity"
+                ExecutionFailed:
+                  $ref: "#/components/examples/ExecutionFailed"
   /api/v1/order/cancel:
     patch:
       tags:
-      - Order
+        - Order
       summary: 주문 취소
       description: 사용자가 특정 주문을 취소합니다.
       operationId: cancelOrder
@@ -825,21 +863,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                InvalidInput:
+                  $ref: "#/components/examples/InvalidInput"
         "404":
           description: 존재하지 않는 주문
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                OrderNotFound:
+                  $ref: "#/components/examples/OrderNotFound"
         "422":
           description: 업무 처리 실패
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-              example:
-                error: Unprocessable Entity
-                message: 주문이 이미 체결되었거나 취소할 수 없는 상태입니다.
+              examples:
+                OrderNotCancelable:
+                  $ref: "#/components/examples/OrderNotCancelable"
 components:
   schemas:
     Member:
@@ -852,11 +896,11 @@ components:
         username:
           type: string
           description: 사용자명
-          example: JohnDoe
+          example: dorris
         email:
           type: string
           description: 이메일
-          example: johndoe@example.com
+          example: dorris@example.com
         phone:
           type: string
           description: 전화번호
@@ -1222,3 +1266,153 @@ components:
           type: integer
           description: 취소할 주문 ID
           example: 123
+  examples:
+    InvalidInput:
+      summary: 잘못된 입력값
+      value:
+        error: Bad Request
+        message: 입력값이 올바르지 않습니다.
+        error_data:
+          field: account_id
+          reason: 숫자여야 합니다.
+
+    DuplicatedUserId:
+      summary: 중복된 사용자 ID
+      value:
+        error: Bad Request
+        message: 이미 존재하는 사용자ID입니다.
+        error_data:
+          userId: 20
+
+    DuplicatedEmail:
+      summary: 중복된 이메일
+      value:
+        error: Bad Request
+        message: 이미 존재하는 이메일입니다.
+        error_data:
+          email: dorris@example.com
+
+    AccountNotFound:
+      summary: 존재하지 않는 계좌
+      value:
+        error: Not Found
+        message: 해당 계좌 ID가 존재하지 않습니다.
+        error_data:
+          accountId: 9999
+
+    InvalidAmountType:
+      summary: 잘못된 금액 형식
+      value:
+        error: Bad Reqeust
+        message: 금액은 숫자 형식이어야 합니다.
+        error_data:
+          amount: "alotofmoney"
+
+    InvalidItemCode:
+      summary: 종목 코드가 6자가 아닌 경우
+      value:
+        error: Bad Request
+        message: Invalid item_code. It must be exactly 6 characters long and contain only uppercase letters and numbers.
+        error_data:
+          itemCode: AB12
+
+    InvalidItemName:
+      summary: 종목명이 100자를 초과한 경우
+      value:
+        error: Bad Request
+        message: Invalid item_name. It must be 100 characters or less and contain only Korean, English letters, and numbers.
+        error_data:
+          itemName: 삼성전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자전자
+
+    InvalidMarket:
+      summary: 시장 구분 오류
+      value:
+        error: Bad Request
+        message: Invalid market. It must be 10 characters or less and contain only Korean or uppercase English letters.
+        error_data:
+          market: nasdaq100@
+
+    InvalidTheme:
+      summary: 테마 코드가 5자가 아닌 경우
+      value:
+        error: Bad Request
+        message: Invalid theme. It must be exactly 5 characters long and contain only uppercase letters and numbers.
+        error_data:
+          theme: EE0062
+
+    InvalidIdFormat:
+      summary: 잘못된 ID 형식
+      value:
+        error: Bad Request
+        message: Invalid ID format. ID must be a number.
+        error_data:
+          id: abc
+
+    ItemNotFound:
+      summary: 존재하지 않는 종목
+      value:
+        error: Not Found
+        message: 해당 종목ID가 존재하지 않습니다.
+        error_data:
+          itemId: 98765
+
+    UserNotFound:
+      summary: 존재하지 않는 사용자
+      value:
+        error: Not Found
+        message: 해당 사용자ID가 존재하지 않습니다.
+        error_data:
+          userId: 10000
+
+    InsufficientFunds:
+      summary: 잔고 부족
+      value:
+        error: Unprocessable Entity
+        message: 계좌 잔액이 부족합니다.
+        error_data:
+          required: 100000
+          available: 50000
+
+    ExecutionFailed:
+      summary: 주문 체결 실패
+      value:
+        error: Unprocessable Entity
+        message: 주문 체결에 실패했습니다.
+        error_data:
+          itemId: 12345
+          reason: 호가 미체결
+
+    InsufficientQuantity:
+      summary: 보유 주식 부족
+      value:
+        error: Unprocessable Entity
+        message: 보유 주식 수량이 부족합니다.
+        error_data:
+          owned: 3
+          requested: 10
+
+    OrderNotFound:
+      summary: 존재하지 않는 주문
+      value:
+        error: Not Found
+        message: 해당 주문ID가 존재하지 않습니다.
+        error_data:
+          orderId: 9999
+
+    OrderNotCancelable:
+      summary: 주문 취소 불가
+      value:
+        error: Unprocessable Entity
+        message: 주문이 이미 체결되었거나 취소할 수 없는 상태입니다.
+        error_data:
+          orderId: 8888
+          status: EXECUTED
+
+    ForbiddenUser:
+      summary: 인가되지 않은 사용자
+      value:
+        error: Forbidden
+        message: 해당 사용자에게 매수 권한이 없습니다.
+        error_data:
+          userId: 7777
+
