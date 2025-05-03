@@ -1,9 +1,9 @@
 package io.ratel.stocktrader.domain.stockitem.service;
 
-import io.ratel.stocktrader.business.stockItem.api.request.ModifyStockItemRequestDto;
-import io.ratel.stocktrader.business.stockItem.api.request.RegisterStockItemRequestDto;
+import io.ratel.stocktrader.business.stockItem.api.request.ModifyStockItemRequest;
+import io.ratel.stocktrader.business.stockItem.api.request.RegisterStockItemRequest;
 import io.ratel.stocktrader.business.stockItem.api.response.RegisterStockItemResponseDto;
-import io.ratel.stocktrader.business.stockItem.api.response.StockItemResponseDto;
+import io.ratel.stocktrader.business.stockItem.api.response.StockItemResponse;
 import io.ratel.stocktrader.business.stockItem.domain.entity.StockItem;
 import io.ratel.stocktrader.business.stockItem.domain.entity.Market;
 import io.ratel.stocktrader.business.stockItem.domain.entity.Theme;
@@ -38,7 +38,7 @@ class StockItemServiceTest {
     @DisplayName("[성공] 모든 종목 목록 조회하면 StockItemResponse 리스트 반환")
     void givenStockItemsWhenGetAllItemsThenReturnStockItemResponseList() {
         // When
-        List<StockItemResponseDto> result = stockItemService.getAllItems();
+        List<StockItemResponse> result = stockItemService.getAllItems();
 
         // Then
         assertThat(result).hasSize(2);
@@ -50,7 +50,7 @@ class StockItemServiceTest {
     @DisplayName("[성공] 새로운 종목을 등록하면 등록된 StockItemResponse 반환")
     void givenCreateStockItemRequestWhenRegisterStockItemThenReturnRegisteredStockItemResponse() {
         // Given
-        RegisterStockItemRequestDto request = RegisterStockItemRequestDto.builder()
+        RegisterStockItemRequest request = RegisterStockItemRequest.builder()
                 .itemCode("DEF456")
                 .itemName("카카오")
                 .market(Market.KOSPI)
@@ -70,7 +70,7 @@ class StockItemServiceTest {
     @DisplayName("[성공] 특정 종목 ID로 조회하면 StockItemResponse 반환")
     void givenValidItemIdWhenGetItemByIdThenReturnStockItemResponse() {
         // When
-        StockItemResponseDto result = stockItemService.getItemById(1L);
+        StockItemResponse result = stockItemService.getItemById(1L);
 
         // Then
         assertThat(result.getItemCode()).isEqualTo("ABC123");
@@ -118,10 +118,10 @@ class StockItemServiceTest {
     @DisplayName("[성공] 특정 종목 ID로 수정하면 수정된 StockItemResponse 반환")
     void givenValidItemIdWhenModifyItemThenUpdateAndReturnStockItemResponse() {
         // Given
-        ModifyStockItemRequestDto requestDto = new ModifyStockItemRequestDto("XYZ789", "카카오", Market.KOSPI, Theme.IE003, 2100.0);
+        ModifyStockItemRequest requestDto = new ModifyStockItemRequest("XYZ789", "카카오", Market.KOSPI, Theme.IE003, 2100.0);
 
         // When
-        StockItemResponseDto result = stockItemService.modifyItem(2L, requestDto);
+        StockItemResponse result = stockItemService.modifyItem(2L, requestDto);
 
         // Then
         assertThat(result.getItemName()).isEqualTo("카카오");
@@ -132,7 +132,7 @@ class StockItemServiceTest {
     @DisplayName("[실패] 존재하지 않는 종목 ID로 수정 시 예외 발생")
     void givenInvalidItemIdWhenModifyItemThenThrowException() {
         // Given
-        ModifyStockItemRequestDto requestDto = new ModifyStockItemRequestDto("ZZZ999", "토스", Market.KONEX, Theme.BH001, 3000.0);
+        ModifyStockItemRequest requestDto = new ModifyStockItemRequest("ZZZ999", "토스", Market.KONEX, Theme.BH001, 3000.0);
 
         // When & Then
         assertThatThrownBy(() -> stockItemService.modifyItem(999L, requestDto))

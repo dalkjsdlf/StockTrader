@@ -2,6 +2,7 @@ package io.ratel.stocktrader.business.stockItem.domain.repository;
 
 import io.ratel.stocktrader.business.stockItem.domain.entity.StockItem;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,13 +21,14 @@ import java.util.Optional;
  */
 @Repository
 @RequiredArgsConstructor
+@Primary
 public class StockItemRepositoryImpl implements StockItemRepository {
 
     private final StockItemJpaRepository stockItemJpaRepository;
 
     @Override
     public List<StockItem> findAll() {
-        return List.of();
+        return stockItemJpaRepository.findAll();
     }
 
     @Override
