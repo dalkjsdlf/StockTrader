@@ -17,18 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * packageName  : io.ratel.stocktrader.business.stockItem.api.controller
- * fileName    : StockItemController
- * author      : dorris
- * date        : 2025. 2. 19.
- * description :
- * 종목 정보 관리 컨트롤러
- * ================================================
- * DATE              AUTHOR              NOTE
- * ================================================
- * 2025. 2. 19.          dorris             최초생성
- */
 @RestController
 @RequestMapping("/api/v1/stockItems")
 @RequiredArgsConstructor

@@ -1,16 +1,5 @@
 package io.ratel.stocktrader.business.stockItem.api.response;
 
-/**
- * packageName  : io.ratel.stocktrader.business.stockItem.api.response
- * fileName    : StockItemResponse
- * author      : dorris
- * date        : 2025. 2. 19.
- * description :
- * ================================================
- * DATE              AUTHOR              NOTE
- * ================================================
- * 2025. 2. 19.          dorris             최초생성
- */
 
 import io.ratel.stocktrader.business.stockItem.domain.entity.Market;
 import io.ratel.stocktrader.business.stockItem.domain.entity.Theme;
